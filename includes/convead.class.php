@@ -371,7 +371,10 @@ class Convead
 
             $cart = WC()->cart->get_cart();
 
-            $products = array();
+            $cartValue = $products = array();
+            $sessionCartValue = unserialize(WC()->session->get('convead_cart_value', ''));
+            $cartChanged = false;
+
             if(count($cart))
             {
                 foreach ($cart as $v)
@@ -382,10 +385,21 @@ class Convead
                         "qnt" => $v['quantity'],
                         "price" => $price,
                     );
+
+                    $cartValue[$v['product_id']] = $v['quantity'];
+                    if(!isset($sessionCartValue[$v['product_id']])
+                        || $sessionCartValue[$v['product_id']] != $v['quantity'])
+                    {
+                        $cartChanged = true;
+                    }
                 }
             }
 
-            $return = $ConveadTracker->eventUpdateCart($products);
+            if(count($cart) && $cartChanged)
+            {
+                $return = $ConveadTracker->eventUpdateCart($products);
+                WC()->session->set('convead_cart_value', serialize($cartValue));
+            }
         }
     }
 
