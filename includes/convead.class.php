@@ -309,14 +309,13 @@ class Convead
             {
                 foreach ($line_items as $item_id => $item)
                 {
-                    $item_meta = $order->get_item_meta( $item_id );
-                    $price = $item_meta['_line_subtotal'][0]
-                        / (float)$item_meta['_qty'][0]
+                    $price = $item['line_subtotal']
+                        / (float)$item['qty']
                         * $convead_plgn_options['currency_excange_rate'];
 
                     $product = new stdClass();
-                    $product->product_id = (int)$item_id;
-                    $product->qnt = (float)$item_meta['_qty'];
+                    $product->product_id = (int)$item['product_id'];
+                    $product->qnt = (float)$item['qty'];
                     $product->price = $price;
 
                     $items[] = $product;
