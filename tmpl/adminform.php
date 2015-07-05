@@ -41,7 +41,7 @@ Author URI: http://joomline.ru
                     </td>
                 </tr>
                 <tr valign="top">
-                    <th scope="row"><?php echo __("Currency to rouble excange rate", 'convead'); ?></th>
+                    <th scope="row"><?php echo __("Currency to rouble exchange rate", 'convead'); ?></th>
                     <td>
                         <input
                             class="regular-text code"

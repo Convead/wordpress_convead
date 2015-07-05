@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: convead\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-26 10:34+0600\n"
-"PO-Revision-Date: 2015-06-26 10:38+0600\n"
+"POT-Creation-Date: 2015-07-05 10:27+0600\n"
+"PO-Revision-Date: 2015-07-05 10:27+0600\n"
 "Last-Translator: Arkadiy <a.sedelnikov@gmail.com>\n"
 "Language-Team: joomline.org <support@joomline.org>\n"
 "Language: ru_RU\n"
@@ -43,9 +43,12 @@ msgid "API Key"
 msgstr "API ключ"
 
 #: tmpl/adminform.php:44
-msgid "Currency to rouble excange rate"
+msgid "Currency to rouble exchange rate"
 msgstr "Коэффициент пересчета валюты в рубли"
 
 #: tmpl/adminform.php:57
 msgid "Save Changes"
 msgstr "Сохранить изменения"
+
+#~ msgid "Currency to rouble excange rate"
+#~ msgstr "Коэффициент пересчета валюты в рубли"
