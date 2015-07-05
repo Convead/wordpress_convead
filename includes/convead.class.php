@@ -395,7 +395,7 @@ class Convead
                 }
             }
 
-            if(count($cart) && $cartChanged)
+            if($cartChanged)
             {
                 $return = $ConveadTracker->eventUpdateCart($products);
                 WC()->session->set('convead_cart_value', serialize($cartValue));
