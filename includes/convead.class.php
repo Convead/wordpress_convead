@@ -264,19 +264,29 @@ class Convead
 
             $url = $_SERVER["HTTP_HOST"];
 
+            $order = wc_get_order( $order_id );
+
             $visitor_info = array();
-            if(!empty(self::$userFirstName)){
-                $visitor_info['first_name'] = self::$userFirstName;
+            $first_name = self::getValue($order->billing_first_name, self::$userFirstName);
+            if($first_name !== false){
+                $visitor_info['first_name'] = $first_name;
             }
-            if(!empty(self::$userLastName)){
-                $visitor_info['last_name'] = self::$userLastName;
+
+            $last_name = self::getValue($order->billing_last_name, self::$userLastName);
+            if($last_name !== false){
+                $visitor_info['last_name'] = $last_name;
             }
-            if(!empty(self::$userEmail)){
-                $visitor_info['email'] = self::$userEmail;
+
+            $email = self::getValue($order->billing_email, self::$userEmail);
+            if($email !== false){
+                $visitor_info['email'] = $email;
             }
-            if(!empty(self::$userPhone)){
-                $visitor_info['phone'] = self::$userPhone;
+
+            $phone = self::getValue($order->billing_phone, self::$userPhone);
+            if($phone !== false){
+                $visitor_info['phone'] = $phone;
             }
+
             if(!empty(self::$userDateOfBirth)){
                 $visitor_info['date_of_birth'] = self::$userDateOfBirth;
             }
@@ -298,7 +308,7 @@ class Convead
 
             $items = array();
 
-            $order = wc_get_order( $order_id );
+
             $line_items = $order->get_items( apply_filters( 'woocommerce_admin_order_item_types', 'line_item' ) );
 
             $total = $order->get_total();
@@ -324,6 +334,14 @@ class Convead
 
             $return = $ConveadTracker->eventOrder($order_id, $order_total, $items);
         }
+    }
+
+    private static function getValue($value, $default)
+    {
+        if(empty($value) && empty($default)){
+            return false;
+        }
+        return (!empty($value)) ? $value : $default;
     }
 
     /** Submit cart to convead
