@@ -391,8 +391,18 @@ class Convead
                     {
                         $cartChanged = true;
                     }
+
+                    if(isset($sessionCartValue[$v['product_id']])){
+                        unset($sessionCartValue[$v['product_id']]);
+                    }
                 }
             }
+
+            if(count($sessionCartValue))
+            {
+                $cartChanged = true;
+            }
+
 
             if($cartChanged)
             {
