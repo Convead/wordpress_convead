@@ -24,6 +24,7 @@ class Convead
 
             self::init_hooks();
             self::$initiated = true;
+            load_plugin_textdomain('convead', false, 'convead/languages');
         }
     }
 

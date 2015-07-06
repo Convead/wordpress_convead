@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: convead\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-05 10:27+0600\n"
-"PO-Revision-Date: 2015-07-05 19:13+0600\n"
+"POT-Creation-Date: 2015-07-07 01:08+0600\n"
+"PO-Revision-Date: 2015-07-07 01:08+0600\n"
 "Last-Translator: Arkadiy <a.sedelnikov@gmail.com>\n"
 "Language-Team: joomline.org <support@joomline.org>\n"
 "Language: ru_RU\n"
@@ -13,24 +13,24 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.8.2\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: includes/convead.class.php:72
+#: includes/convead.class.php:74
 msgid "Settings"
 msgstr "Настройки"
 
-#: includes/convead.class.php:82 includes/convead.class.php:83
+#: includes/convead.class.php:84 includes/convead.class.php:85
 msgid "Convead"
 msgstr "Convead"
 
-#: includes/convead.class.php:143
+#: includes/convead.class.php:147
 msgid "Settings saved"
 msgstr "Настройки сохранены"
 
-#: includes/convead.class.php:160
+#: includes/convead.class.php:164
 msgid "Error Load Template"
 msgstr "Ошибка подключения шаблона"
 
@@ -49,6 +49,10 @@ msgstr "Коэффициент пересчета валюты в рубли"
 #: tmpl/adminform.php:57
 msgid "Save Changes"
 msgstr "Сохранить изменения"
+
+#: tmpl/adminform.php:64
+msgid "Go to Convead account"
+msgstr "Перейти в аккаунт Convead"
 
 #~ msgid "Currency to rouble excange rate"
 #~ msgstr "Коэффициент пересчета валюты в рубли"

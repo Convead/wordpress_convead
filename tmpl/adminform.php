@@ -61,6 +61,6 @@ Author URI: http://joomline.ru
     </div>
     <br/>
     <div class="link">
-        <a class="button-secondary" href="https://app.convead.io" target="_blank">Перейти в аккаунт Convead</a>
+        <a class="button-secondary" href="https://app.convead.io" target="_blank"><?php echo __("Go to Convead account", 'convead'); ?></a>
     </div>
 </div>
