@@ -6,7 +6,8 @@ Version: 1.0
 Author: Arkadiy
 Author URI: http://joomline.ru
 */
-
+$enable  =  $convead_plgn_options['only_product_id']? ' checked="checked"' : '';
+$disable = !$convead_plgn_options['only_product_id']? ' checked="checked"' : '';
 ?>
 <div class="wrap">
     <div class="icon32" id="icon-options-general"></div>
@@ -48,6 +49,25 @@ Author URI: http://joomline.ru
                             name='currency_excange_rate'
                             type='text'
                             value='<?php echo $convead_plgn_options['currency_excange_rate']; ?>'
+                            />
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row"><?php echo __("Submit only product_id (not variation_id)", 'convead'); ?></th>
+                    <td>
+                        <label for="only_product_id_1"><?php echo __("Yes", 'convead'); ?></label>
+                        <input
+                            id="only_product_id_1"
+                            name='only_product_id'
+                            type='radio'
+                            value='1'<?php echo $enable; ?>
+                            />
+                        <label for="only_product_id_1"><?php echo __("No", 'convead'); ?></label>
+                        <input
+                            id="only_product_id_0"
+                            name='only_product_id'
+                            type='radio'
+                            value='0'<?php echo $disable; ?>
                             />
                     </td>
                 </tr>

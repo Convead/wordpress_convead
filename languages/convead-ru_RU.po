@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: convead\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-07 01:08+0600\n"
-"PO-Revision-Date: 2015-07-07 01:08+0600\n"
+"POT-Creation-Date: 2015-07-09 15:49+0600\n"
+"PO-Revision-Date: 2015-07-09 15:50+0600\n"
 "Last-Translator: Arkadiy <a.sedelnikov@gmail.com>\n"
 "Language-Team: joomline.org <support@joomline.org>\n"
 "Language: ru_RU\n"
@@ -18,39 +18,51 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: includes/convead.class.php:74
+#: includes/convead.class.php:75
 msgid "Settings"
 msgstr "Настройки"
 
-#: includes/convead.class.php:84 includes/convead.class.php:85
+#: includes/convead.class.php:85 includes/convead.class.php:86
 msgid "Convead"
 msgstr "Convead"
 
-#: includes/convead.class.php:147
+#: includes/convead.class.php:149
 msgid "Settings saved"
 msgstr "Настройки сохранены"
 
-#: includes/convead.class.php:164
+#: includes/convead.class.php:166
 msgid "Error Load Template"
 msgstr "Ошибка подключения шаблона"
 
-#: tmpl/adminform.php:13
+#: tmpl/adminform.php:14
 msgid "Convead Settings"
 msgstr "Настройки Convead"
 
-#: tmpl/adminform.php:33
+#: tmpl/adminform.php:34
 msgid "API Key"
 msgstr "API ключ"
 
-#: tmpl/adminform.php:44
+#: tmpl/adminform.php:45
 msgid "Currency to rouble exchange rate"
 msgstr "Коэффициент пересчета валюты в рубли"
 
-#: tmpl/adminform.php:57
+#: tmpl/adminform.php:56
+msgid "Submit only product_id (not variation_id)"
+msgstr "Передавать только product_id (исключить variation_id)"
+
+#: tmpl/adminform.php:58
+msgid "Yes"
+msgstr "Да"
+
+#: tmpl/adminform.php:65
+msgid "No"
+msgstr "Нет"
+
+#: tmpl/adminform.php:77
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: tmpl/adminform.php:64
+#: tmpl/adminform.php:84
 msgid "Go to Convead account"
 msgstr "Перейти в аккаунт Convead"
 

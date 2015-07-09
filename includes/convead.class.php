@@ -15,7 +15,9 @@ class Convead
         $userEmail,
         $userPhone,
         $userDateOfBirth,
-        $userGender;
+        $userGender,
+        $log = 0
+    ;
 
     public static function init()
     {
@@ -94,10 +96,13 @@ class Convead
     {
         return array(
             'convead_key' => '',
-            'currency_excange_rate' => '1'
+            'currency_excange_rate' => '1',
+            'only_product_id' => '1',
         );
     }
 
+    // мой ключ f87f58122be091c39549e90348bd02a1
+    // ключ Дениса 34c11658fac4dfefb2a4f4b1d7657020
     public static function plgn_settings()
     {
         $plgn_options_default = self::plgn_options_default();
@@ -320,12 +325,15 @@ class Convead
             {
                 foreach ($line_items as $item_id => $item)
                 {
+                    $pid = (!empty($item['variation_id']) && !$convead_plgn_options['only_product_id'])
+                        ? $item['variation_id'] : $item['product_id'];
+
                     $price = $item['line_subtotal']
                         / (float)$item['qty']
                         * $convead_plgn_options['currency_excange_rate'];
 
                     $product = new stdClass();
-                    $product->product_id = (int)$item['product_id'];
+                    $product->product_id = (int)$pid;
                     $product->qnt = (float)$item['qty'];
                     $product->price = $price;
 
@@ -393,35 +401,52 @@ class Convead
             $sessionCartValue = unserialize(WC()->session->get('convead_cart_value', ''));
             $cartChanged = false;
 
+            self::log('Event upldate cart '. date('Y-m-d h:i:s'));
+            self::log('$sessionCartValue');
+            self::log($sessionCartValue);
+
             if(count($cart))
             {
-                foreach ($cart as $v)
+                self::log('Count cart = '.count($cart));
+
+                foreach ($cart as $k => $v)
                 {
+                    $pid = (!empty($v['variation_id']) && !$convead_plgn_options['only_product_id'])
+                        ? $v['variation_id'] : $v['product_id'];
+
                     $price = $v['data']->price * $convead_plgn_options['currency_excange_rate'];
                     $products[] = array(
-                        "product_id" => $v['product_id'],
+                        "product_id" => $pid,
                         "qnt" => $v['quantity'],
                         "price" => $price,
                     );
 
-                    $cartValue[$v['product_id']] = $v['quantity'];
-                    if(!isset($sessionCartValue[$v['product_id']])
-                        || $sessionCartValue[$v['product_id']] != $v['quantity'])
+                    $cartValue[$k] = $v['quantity'];
+                    if(!isset($sessionCartValue[$k])
+                        || $sessionCartValue[$k] != $v['quantity'])
                     {
+                        self::log('Cart changed by cart product count '.$v['quantity'].' != session product count '
+                            .(float)$sessionCartValue[$k].' Product ID = '.$pid);
                         $cartChanged = true;
                     }
 
-                    if(isset($sessionCartValue[$v['product_id']])){
-                        unset($sessionCartValue[$v['product_id']]);
+                    if(isset($sessionCartValue[$k])){
+                        unset($sessionCartValue[$k]);
                     }
                 }
             }
 
             if(count($sessionCartValue))
             {
+                self::log('Cart changed by not empty deleted session products. $sessionCartValue:');
+                self::log($sessionCartValue);
+
                 $cartChanged = true;
             }
+            self::log('$cartValue');
+            self::log($cartValue);
 
+            self::log('Cart changed: ' . (int)$cartChanged. "\r\n\r\n");
 
             if($cartChanged)
             {
@@ -457,5 +482,15 @@ class Convead
             $params = get_option('convead_plgn_options');
         }
         return $params;
+    }
+
+    private static function log($data)
+    {
+        if(self::$log)
+        {
+            $data = print_r($data, true);
+            $file = ABSPATH.'wp-content/plugins/convead/log/log.txt';
+            file_put_contents($file, PHP_EOL . $data, FILE_APPEND);
+        }
     }
 }
