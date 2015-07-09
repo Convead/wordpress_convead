@@ -98,7 +98,7 @@ class Convead
         );
     }
 
-    function plgn_settings()
+    public static function plgn_settings()
     {
         $plgn_options_default = self::plgn_options_default();
 
@@ -431,7 +431,7 @@ class Convead
         }
     }
 
-    private function updateUserInfo()
+    private static function updateUserInfo()
     {
         $current_user = wp_get_current_user();
         $user_id = $current_user->ID;
