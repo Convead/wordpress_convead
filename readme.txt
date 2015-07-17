@@ -12,6 +12,7 @@ Convead - plugin integration with service sales Analytics for online stores. Sup
 == Description ==
 
 Service Convead will allow you to:
+
 * Analytics online store
 * Real people under each figure
 * The key metrics of the store
