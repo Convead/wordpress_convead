@@ -2,7 +2,7 @@
 /*
 Plugin Name: Convead
 Description:
-Version: 1.0
+Version: 1.0.1
 Author: Joomline
 Author URI: http://joomline.ru
 */
@@ -23,8 +23,9 @@ Author URI: http://joomline.ru
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
-require_once 'includes/convead.class.php';
+define( 'CONVEAD_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'CONVEAD_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+require_once (CONVEAD_PLUGIN_DIR . 'includes/convead.class.php');
 
 //Инициализация
 add_action( 'init', array( 'Convead', 'init' ) );

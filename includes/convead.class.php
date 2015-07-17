@@ -160,7 +160,7 @@ class Convead
 
     private static function loadTPL($name, $options)
     {
-        $tmpl = ABSPATH . 'wp-content/plugins/convead/tmpl/' . $name . '.php';
+        $tmpl = ( CONVEAD_PLUGIN_DIR .'tmpl/' . $name . '.php');
 
         if(!is_file($tmpl))
             return __('Error Load Template', 'convead');
@@ -263,8 +263,8 @@ class Convead
     {
         $convead_plgn_options = self::get_params();
         if(!empty($convead_plgn_options['convead_key']))
-        {
-            require_once ABSPATH.'wp-content/plugins/convead/lib/ConveadTracker.php';
+        { 
+            require_once ( CONVEAD_PLUGIN_DIR . 'lib/ConveadTracker.php');
 
             self::updateUserInfo();
 
@@ -363,7 +363,7 @@ class Convead
         $convead_plgn_options = self::get_params();
         if(!empty($convead_plgn_options['convead_key']))
         {
-            require_once ABSPATH.'wp-content/plugins/convead/lib/ConveadTracker.php';
+            require_once ( CONVEAD_PLUGIN_DIR . 'lib/ConveadTracker.php');
 
             $url = $_SERVER["HTTP_HOST"];
 
@@ -489,7 +489,7 @@ class Convead
         if(self::$log)
         {
             $data = print_r($data, true);
-            $file = ABSPATH.'wp-content/plugins/convead/log/log.txt';
+            $file = ( CONVEAD_PLUGIN_DIR .'log/log.txt');
             file_put_contents($file, PHP_EOL . $data, FILE_APPEND);
         }
     }
