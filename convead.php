@@ -2,12 +2,12 @@
 /*
 Plugin Name: Convead
 Description:
-Version: 1.0.1
+Version: 1.0.2
 Author: Joomline
 Author URI: http://joomline.ru
 */
 
-/*  Copyright 2013  Joomline  (email: sale@joomline.ru)
+/*  Copyright 2015  Joomline  (email: sale@joomline.ru)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
