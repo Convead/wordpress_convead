@@ -2,8 +2,8 @@
 Contributors: joomline
 Tags: e-commerce, convead, woocommerce, widgets, email campaigns, analytics
 Requires at least: 4.2.0
-Tested up to: 4.2.3
-Stable tag: 1.0.2
+Tested up to: 4.3
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,8 +42,13 @@ Yes we do. You can try full-featured version of Convead for 14 days for free.
 3. Visitor's details and actions timeline.
 4. Widgets constructor.
 5. Email campaigns constructor.
+6. Live chat.
 
 == Changelog ==
+
+= 1.0.3 =
+* Tested up to 4.3.
+* Bump plugin description.
 
 = 1.0.2 =
 * Bump readme.
