@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: convead\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-09 15:49+0600\n"
-"PO-Revision-Date: 2015-07-09 15:50+0600\n"
+"POT-Creation-Date: 2015-09-30 16:10+0300\n"
+"PO-Revision-Date: 2015-09-30 16:10+0300\n"
 "Last-Translator: Arkadiy <a.sedelnikov@gmail.com>\n"
 "Language-Team: joomline.org <support@joomline.org>\n"
 "Language: ru_RU\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -38,31 +38,41 @@ msgstr "Ошибка подключения шаблона"
 msgid "Convead Settings"
 msgstr "Настройки Convead"
 
-#: tmpl/adminform.php:34
+#: tmpl/adminform.php:29
+msgid "Curl disabled message"
+msgstr ""
+"Внимание! На хостинге не включена поддержка CURL. Она необходима для работы "
+"модуля."
+
+#: tmpl/adminform.php:30
+msgid "Hosting support"
+msgstr "Обратитесь в службу техподдержки вашего хостинга."
+
+#: tmpl/adminform.php:39
 msgid "API Key"
 msgstr "API ключ"
 
-#: tmpl/adminform.php:45
+#: tmpl/adminform.php:50
 msgid "Currency to rouble exchange rate"
 msgstr "Коэффициент пересчета валюты в рубли"
 
-#: tmpl/adminform.php:56
+#: tmpl/adminform.php:61
 msgid "Submit only product_id (not variation_id)"
 msgstr "Передавать только product_id (исключить variation_id)"
 
-#: tmpl/adminform.php:58
+#: tmpl/adminform.php:63
 msgid "Yes"
 msgstr "Да"
 
-#: tmpl/adminform.php:65
+#: tmpl/adminform.php:70
 msgid "No"
 msgstr "Нет"
 
-#: tmpl/adminform.php:77
+#: tmpl/adminform.php:82
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: tmpl/adminform.php:84
+#: tmpl/adminform.php:89
 msgid "Go to Convead account"
 msgstr "Перейти в аккаунт Convead"
 

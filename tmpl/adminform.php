@@ -24,7 +24,12 @@ $disable = !$convead_plgn_options['only_product_id']? ' checked="checked"' : '';
         </p>
     </div>
 
-
+    <?php if (!function_exists('curl_exec')): ?>
+        <div class="update-nag">
+            <?php echo __("Curl disabled message", 'convead'); ?><br />
+            <?php echo __("Hosting support", 'convead'); ?>
+        </div>
+    <?php endif; ?>
 
     <div>
         <form name="form1" method="post" action="admin.php?page=convead" enctype="multipart/form-data">

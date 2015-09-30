@@ -2,7 +2,7 @@
 /*
 Plugin Name: Convead
 Description:
-Version: 1.0.5
+Version: 1.0.6
 Author: Joomline
 Author URI: http://joomline.ru
 */
@@ -29,3 +29,4 @@ require_once (CONVEAD_PLUGIN_DIR . 'includes/convead.class.php');
 
 //Инициализация
 add_action( 'init', array( 'Convead', 'init' ) );
+load_plugin_textdomain( 'convead', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );

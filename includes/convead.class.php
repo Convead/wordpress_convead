@@ -270,7 +270,8 @@ class Convead
 
             $url = $_SERVER["HTTP_HOST"];
 
-            $order = wc_get_order( $order_id );
+            if (function_exists('wc_get_order')) $order = wc_get_order( $order_id );
+            else $order = new WC_Order( $order_id );
 
             $visitor_info = array();
             $first_name = self::getValue($order->billing_first_name, self::$userFirstName);
@@ -318,7 +319,7 @@ class Convead
             $line_items = $order->get_items( apply_filters( 'woocommerce_admin_order_item_types', 'line_item' ) );
 
             $total = $order->get_total();
-            $shipping = $order->get_total_shipping();
+            $shipping = (method_exists($order, 'get_total_shipping')) ? $order->get_total_shipping() : 0;
             $order_total = $total - $shipping;
 
             if(is_array($line_items) && count($line_items))
@@ -360,6 +361,13 @@ class Convead
      */
     public static function submitCart()
     {
+        if (function_exists('WC')) $wc = WC();
+        else
+        {
+            global $woocommerce;
+            $wc = $woocommerce;
+        }
+
         $convead_plgn_options = self::get_params();
         if(!empty($convead_plgn_options['convead_key']))
         {
@@ -395,10 +403,10 @@ class Convead
 
             $ConveadTracker = new ConveadTracker( $convead_plgn_options['convead_key'], $url, $guestUID, self::$user_id, $visitor_info );
 
-            $cart = WC()->cart->get_cart();
+            $cart = $wc->cart->get_cart();
 
             $cartValue = $products = array();
-            $sessionCartValue = unserialize(WC()->session->get('convead_cart_value', ''));
+            $sessionCartValue = unserialize($wc->session->get('convead_cart_value', ''));
             $cartChanged = false;
 
             self::log('Event upldate cart '. date('Y-m-d h:i:s'));
@@ -451,7 +459,7 @@ class Convead
             if($cartChanged)
             {
                 $return = $ConveadTracker->eventUpdateCart($products);
-                WC()->session->set('convead_cart_value', serialize($cartValue));
+                $wc->session->set('convead_cart_value', serialize($cartValue));
             }
         }
     }
