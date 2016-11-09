@@ -21,9 +21,8 @@ class Convead
 
     public static function init()
     {
-        if ( ! self::$initiated )
+        if(!self::$initiated )
         {
-
             self::init_hooks();
             self::$initiated = true;
             load_plugin_textdomain('convead', false, 'convead/languages');
@@ -49,6 +48,8 @@ class Convead
         add_action( 'woocommerce_before_single_product', array('Convead', 'productView'));
         add_action( 'woocommerce_cart_updated', array('Convead', 'submitCart'));
         add_action( 'woocommerce_checkout_order_processed', array('Convead', 'submitOrder'));
+        add_action( 'woocommerce_order_status_changed', array('Convead', 'stateOrder') );
+        add_action( 'wp_trash_post', array('Convead', 'deleteOrder') );
 
         register_uninstall_hook( __FILE__, array('Convead', 'delete_options') );
     }
@@ -65,12 +66,12 @@ class Convead
         //Static so we don't call plugin_basename on every plugin row.
         static $this_plugin;
 
-        if (!$this_plugin)
+        if(!$this_plugin)
         {
             $this_plugin = plugin_basename(ARP_BASE);
         }
 
-        if ($file == $this_plugin)
+        if($file == $this_plugin)
         {
             $settings_link = '<a href="admin.php?page=convead">' . __('Settings', 'convead') . '</a>';
             array_unshift($links, $settings_link);
@@ -101,13 +102,11 @@ class Convead
         );
     }
 
-    // мой ключ f87f58122be091c39549e90348bd02a1
-    // ключ Дениса 34c11658fac4dfefb2a4f4b1d7657020
     public static function plgn_settings()
     {
         $plgn_options_default = self::plgn_options_default();
 
-        if (!get_option('convead_plgn_options'))
+        if(!get_option('convead_plgn_options'))
         {
             add_option('convead_plgn_options', $plgn_options_default, '', 'yes');
         }
@@ -126,7 +125,7 @@ class Convead
         $message = "";
         $error = "";
 
-        if (isset($_REQUEST['convead_plgn_form_submit'])
+        if(isset($_REQUEST['convead_plgn_form_submit'])
             && check_admin_referer(plugin_basename(dirname(__DIR__)), 'convead_plgn_nonce_name'))
         {
             foreach($convead_plgn_options_default as $k => $v)
@@ -256,6 +255,38 @@ class Convead
         }
     }
 
+    /** Submit order state to convead
+     * @param $order_id
+     */
+    public static function stateOrder($order_id)
+    {
+        $order = wc_get_order($order_id);
+        
+        if(empty($order)) return;
+        
+        if(!($tracker = self::init_tracker())) return;
+        
+        // if order is created in the admin panel
+        if (is_admin_bar_showing() and $order->order_date == $order->modified_date) self::submitOrder($order_id);
+        else {
+            $tracker->webHookOrderUpdate($order_id, self::switch_state($order->post_status));
+        }
+    }
+
+    /** Submit order delete to convead
+     * @param $order_id
+     */
+    public static function deleteOrder($order_id)
+    {
+        $order = wc_get_order($order_id);
+
+        if(empty($order)) return;
+    
+        if(!($tracker = self::init_tracker())) return;
+        
+        $tracker->webHookOrderUpdate($order_id, 'cancelled');
+    }
+
     /** Submit order to convead
      * @param $order_id
      */
@@ -303,8 +334,13 @@ class Convead
 
             do_action( 'convead_visitor_info', $visitor_info );
 
-            $guestUID = isset($_COOKIE['convead_guest_uid']) ? $_COOKIE['convead_guest_uid'] : '';
-
+            $guestUID = isset($_COOKIE['convead_guest_uid']) ? $_COOKIE['convead_guest_uid'] : false;
+            
+            if(is_admin_bar_showing()){
+                $guestUID = false;
+                self::$user_id = $order->customer_user ? $order->customer_user : false;
+            }
+            
             $ConveadTracker = new ConveadTracker(
                 $convead_plgn_options['convead_key'],
                 $url,
@@ -342,7 +378,7 @@ class Convead
                 }
             }
 
-            $return = $ConveadTracker->eventOrder($order_id, $order_total, $items);
+            $return = $ConveadTracker->eventOrder($order_id, $order_total, $items, self::switch_state($order->post_status));
         }
     }
 
@@ -361,7 +397,7 @@ class Convead
      */
     public static function submitCart()
     {
-        if (function_exists('WC')) $wc = WC();
+        if(function_exists('WC')) $wc = WC();
         else
         {
             global $woocommerce;
@@ -399,7 +435,7 @@ class Convead
 
             do_action( 'convead_visitor_info', $visitor_info );
 
-            $guestUID = isset($_COOKIE['convead_guest_uid']) ? $_COOKIE['convead_guest_uid'] : '';
+            $guestUID = isset($_COOKIE['convead_guest_uid']) ? $_COOKIE['convead_guest_uid'] : false;
 
             $ConveadTracker = new ConveadTracker( $convead_plgn_options['convead_key'], $url, $guestUID, self::$user_id, $visitor_info );
 
@@ -482,6 +518,23 @@ class Convead
             self::$userPhone = $user_data['billing_phone'][0];
     }
 
+
+    private static function switch_state($state) {
+        switch($state)
+        {
+          case 'wc-on-hold':
+            $state = 'new';
+            break;
+          case 'wc-completed':
+            $state = 'shipped';
+            break;
+          case 'wc-cancelled':
+            $state = 'cancelled';
+            break;
+        }
+        return $state;
+    }
+
     private static function get_params()
     {
         static $params;
@@ -492,12 +545,22 @@ class Convead
         return $params;
     }
 
+    private static function init_tracker()
+    {
+        $convead_plgn_options = self::get_params();
+        if(empty($convead_plgn_options['convead_key'])) return false;
+        $app_key = $convead_plgn_options['convead_key'];
+        require_once CONVEAD_PLUGIN_DIR . 'lib/ConveadTracker.php';
+        $tracker = new ConveadTracker($app_key);
+        return $tracker;
+    }
+
     private static function log($data)
     {
         if(self::$log)
         {
             $data = print_r($data, true);
-            $file = ( CONVEAD_PLUGIN_DIR .'log/log.txt');
+            $file = CONVEAD_PLUGIN_DIR .'log/log.txt';
             file_put_contents($file, PHP_EOL . $data, FILE_APPEND);
         }
     }
