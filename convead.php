@@ -2,7 +2,7 @@
 /*
 Plugin Name: Convead
 Description:
-Version: 1.0.7
+Version: 1.1.0
 Author: Joomline
 Author URI: http://joomline.ru
 */
