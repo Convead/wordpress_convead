@@ -34,9 +34,6 @@ class Convead
      */
     private static function init_hooks()
     {
-        // adds "Settings" link to the plugin action page
-        add_filter( 'plugin_action_links', array('Convead', 'plgn_action_links'), 10, 2 );
-
         //Calling a function add administrative menu.
         add_action( 'admin_menu', array('Convead', 'plgn_add_pages') );
 
@@ -58,25 +55,6 @@ class Convead
     public static function delete_options()
     {
         delete_option('convead_plgn_options');
-    }
-
-    //Function 'plgn_action_links' are using to create action links on admin page.
-    public static function plgn_action_links($links, $file)
-    {
-        //Static so we don't call plugin_basename on every plugin row.
-        static $this_plugin;
-
-        if(!$this_plugin)
-        {
-            $this_plugin = plugin_basename(ARP_BASE);
-        }
-
-        if($file == $this_plugin)
-        {
-            $settings_link = '<a href="admin.php?page=convead">' . __('Settings', 'convead') . '</a>';
-            array_unshift($links, $settings_link);
-        }
-        return $links;
     }
 
     public static function plgn_add_pages()
