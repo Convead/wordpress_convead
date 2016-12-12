@@ -1,5 +1,5 @@
 ﻿=== Convead ===
-Contributors: joomline
+Contributors: convead
 Tags: e-commerce, convead, woocommerce, widgets, email campaigns, analytics
 Requires at least: 4.2.0
 Tested up to: 4.7
