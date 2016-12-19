@@ -415,6 +415,8 @@ class Convead
 
             $guestUID = isset($_COOKIE['convead_guest_uid']) ? $_COOKIE['convead_guest_uid'] : false;
 
+            if (!$guestUID and !self::$user_id) return;
+
             $ConveadTracker = new ConveadTracker( $convead_plgn_options['convead_key'], $url, $guestUID, self::$user_id, $visitor_info );
 
             $cart = $wc->cart->get_cart();
