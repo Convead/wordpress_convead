@@ -30,7 +30,7 @@ Now you can easily perform all your work with the customers in one service calle
 == Frequently Asked Questions ==
 
 = Do I need to register at Convead first to be able to use this plugin? = 
-Yes, you should register at [Convead](http://convead.com/?ref=a261ed475e2a05d4) first to obtain an API-key.
+Yes, you should register at [Convead](http://convead.com/?ref=a261ed475e2a05d4&utm_source=wordpress&utm_medium=appstore) first to obtain an API-key.
 
 = Do you have a trial period? =
 Yes we do. You can try full-featured version of Convead for 14 days for free.
