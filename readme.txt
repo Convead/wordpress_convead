@@ -11,16 +11,25 @@ Convead - Аnalytics and Actions Combined. Convead makes it easy to retain and r
 
 == Description ==
 
-Do you know, what your customers do on your web-site? Can you analyse and influence their behaviour? Do you use email-marketing, widgets and customers contacts collection? How many services do you use for that? 
+Plugin is completely free. In order to use the plugin you must be registered at Covead. Upon registration you have a 7 days trial period, for further usage of the account you will be charged accroding to the pricing, which you can find at Convead website.
 
-Now you can easily perform all your work with the customers in one service called Convead. It is the easiest way to estimate your business, retain and return your customers. You can see their behaviour on the sales funnel, segment them by any properties or events. Customers emails you can easily collect by widgets and than use them in automatic and one-time e-mails to return clients. 
+= Tuning your online sales =
+Convead — is a service, that helps you increase your sales with automatic scenarios, including newsletters, widgets, popups, chat, text messages and ads.
 
-= Key features =
+Upon entering an offline store, people are instantly approached by a salesman. Otherwise they are "just looking". Good salesman carefuly pushes a customer towards the purchase — finds out the needs, gets them involved in special offers, introduces merchandise from a good side. If a customer isn’t quite ready for the purchase, the salesman will try to get his contacts to reach out later. After the purchase, the salesman will stay in touch and inform the client about new goods. Offline stores have learned to teach their salesman the engagement technique, online stores though usually let the customer go.
 
-* Sales Funnel and Analytics
-* Customer Segmentation
-* Smart Widgets
-* Automatic and One-Time E-mails
+Convead is the salesman, automatic and for online stores. He will show customer the chosen special offer, ask his email, phone number, at the right moment he will activate an online chat. If a client leaves the website, Convead will do his best to try and bring him back, even if the customer spent few moments and didn’t have a chance to say hello. As for existing clients, Convead will tell them about new merchandise, wish them happy birthday or offer special purchase conditions.
+
+It’s not magic — Convead needs to be set up. But the time you spend on it will be greatly  compensated by the number of new sales. Without new ads expences.
+
+= Convead helped online stores: =
+* Collect visitors contacts with widgets and form a loyal subscriber base
+* Return abandoned carts and sell more with the help of trigger emails
+* Chat with hottest users online, seeing the history of their exact actions, theire interests and past messages
+* Show promo widgets to different visitors groups and direct them to the most interesting corners of the website
+* Send marketing emails and newsletters to stay in touch with clients and increase sales
+* Segment visitors and use analytics for more precies tuning of marketing engagements
+* Evaluate the results on the sales funnel, designed specifically for online stores
 
 == Installation ==
 
