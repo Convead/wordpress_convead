@@ -76,7 +76,7 @@ class Convead
         return array(
             'convead_key' => '',
             'currency_excange_rate' => '1',
-            'only_product_id' => '1',
+            'only_product_id' => '',
         );
     }
 
