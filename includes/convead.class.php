@@ -76,7 +76,7 @@ class Convead
         return array(
             'convead_key' => '',
             'currency_excange_rate' => '1',
-            'only_product_id' => '',
+            'only_product_id' => '1',
         );
     }
 
@@ -220,10 +220,20 @@ class Convead
             $uri = get_permalink($wp_query->post);
             $product_cats = wp_get_post_terms( $wp_query->post->ID, 'product_cat', array( "fields" => "ids" ) );
             $category_id = (is_array($product_cats) && count($product_cats)) ? $product_cats[0] : 0;
+            
+            $product_id = $wp_query->post->ID;
+            $product = wc_get_product( $product_id );
+            if (!$convead_plgn_options['only_product_id'] && $product->product_type == 'variable') {
+                $available_variations = $product->get_available_variations();
+                if (count($available_variations) > 0) {
+                    $variant = array_shift($available_variations);
+                    $product_id = $variant['variation_id'];
+                }
+            }
             ?>
             <script type="text/javascript">
                 convead('event', 'view_product', {
-                    product_id: <?php echo $wp_query->post->ID; ?>,
+                    product_id: <?php echo $product_id; ?>,
                     category_id: <?php echo $category_id; ?>,
                     product_name: '<?php echo $wp_query->post->post_title; ?>',
                     product_url: '<?php echo $uri; ?>'
