@@ -2,9 +2,9 @@
 /*
 Plugin Name: Convead
 Description:
-Version: 1.1.2
-Author: Joomline
-Author URI: http://joomline.ru
+Version: 1.1.3
+Author: Convead
+Author URI: http://convead.com
 */
 
 /*  Copyright 2015  Joomline  (email: sale@joomline.ru)
