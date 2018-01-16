@@ -3,7 +3,7 @@ Contributors: convead
 Tags: e-commerce, convead, woocommerce, widgets, email campaigns, analytics
 Requires at least: 4.2.0
 Tested up to: 4.7
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,9 @@ Yes we do. You can try full-featured version of Convead for 14 days for free.
 6. Live chat.
 
 == Changelog ==
+
+= 1.1.4 =
+* Support Woocommerce 3.0
 
 = 1.1.3 =
 * Set variant id for view product event

@@ -257,7 +257,7 @@ class Convead
         // if order is created in the admin panel
         if (is_admin_bar_showing() and $order->order_date == $order->modified_date) self::submitOrder($order_id);
         else {
-            $tracker->webHookOrderUpdate($order_id, self::switch_state($order->post_status));
+            $tracker->webHookOrderUpdate($order_id, self::switch_state( $order->get_status() ));
         }
     }
 
@@ -293,22 +293,22 @@ class Convead
             else $order = new WC_Order( $order_id );
 
             $visitor_info = array();
-            $first_name = self::getValue($order->billing_first_name, self::$userFirstName);
+            $first_name = self::getValue($order->get_billing_first_name(), self::$userFirstName);
             if($first_name !== false){
                 $visitor_info['first_name'] = $first_name;
             }
 
-            $last_name = self::getValue($order->billing_last_name, self::$userLastName);
+            $last_name = self::getValue($order->get_billing_last_name(), self::$userLastName);
             if($last_name !== false){
                 $visitor_info['last_name'] = $last_name;
             }
 
-            $email = self::getValue($order->billing_email, self::$userEmail);
+            $email = self::getValue($order->get_billing_email(), self::$userEmail);
             if($email !== false){
                 $visitor_info['email'] = $email;
             }
 
-            $phone = self::getValue($order->billing_phone, self::$userPhone);
+            $phone = self::getValue($order->get_billing_phone(), self::$userPhone);
             if($phone !== false){
                 $visitor_info['phone'] = $phone;
             }
@@ -366,7 +366,7 @@ class Convead
                 }
             }
 
-            $return = $ConveadTracker->eventOrder($order_id, $order_total, $items, self::switch_state($order->post_status));
+            $return = $ConveadTracker->eventOrder($order_id, $order_total, $items, self::switch_state( $order->get_status() ));
         }
     }
 
@@ -431,13 +431,13 @@ class Convead
 
             $cart = $wc->cart->get_cart();
 
-            $cartValue = $products = array();
             $sessionCartValue = unserialize($wc->session->get('convead_cart_value', ''));
-            $cartChanged = false;
 
             self::log('Event upldate cart '. date('Y-m-d h:i:s'));
             self::log('$sessionCartValue');
             self::log($sessionCartValue);
+            
+            $products = array();
 
             if(count($cart))
             {
@@ -448,44 +448,21 @@ class Convead
                     $pid = (!empty($v['variation_id']) && !$convead_plgn_options['only_product_id'])
                         ? $v['variation_id'] : $v['product_id'];
 
-                    $price = $v['data']->price * $convead_plgn_options['currency_excange_rate'];
+                    $price = $v['data']->get_price() * $convead_plgn_options['currency_excange_rate'];
                     $products[] = array(
                         "product_id" => $pid,
                         "qnt" => $v['quantity'],
                         "price" => $price,
                     );
-
-                    $cartValue[$k] = $v['quantity'];
-                    if(!isset($sessionCartValue[$k])
-                        || $sessionCartValue[$k] != $v['quantity'])
-                    {
-                        self::log('Cart changed by cart product count '.$v['quantity'].' != session product count '
-                            .(float)$sessionCartValue[$k].' Product ID = '.$pid);
-                        $cartChanged = true;
-                    }
-
-                    if(isset($sessionCartValue[$k])){
-                        unset($sessionCartValue[$k]);
-                    }
                 }
             }
 
-            if(count($sessionCartValue))
+
+            if($sessionCartValue != $products)
             {
-                self::log('Cart changed by not empty deleted session products. $sessionCartValue:');
-                self::log($sessionCartValue);
-
-                $cartChanged = true;
-            }
-            self::log('$cartValue');
-            self::log($cartValue);
-
-            self::log('Cart changed: ' . (int)$cartChanged. "\r\n\r\n");
-
-            if($cartChanged)
-            {
+                self::log('Cart changed: '.serialize($products));
                 $return = $ConveadTracker->eventUpdateCart($products);
-                $wc->session->set('convead_cart_value', serialize($cartValue));
+                $wc->session->set('convead_cart_value', serialize($products));
             }
         }
     }

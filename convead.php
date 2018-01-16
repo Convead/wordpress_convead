@@ -2,7 +2,7 @@
 /*
 Plugin Name: Convead
 Description:
-Version: 1.1.3
+Version: 1.1.4
 Author: Convead
 Author URI: http://convead.com
 */
