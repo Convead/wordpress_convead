@@ -6,6 +6,8 @@ Tested up to: 4.7
 Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Requires PHP: 5.2
+Donate link: http://convead.com/
 
 Convead - Аnalytics and Actions Combined. Convead makes it easy to retain and return customers for eCommerce. Supports WooCommerce 2.x.
 
@@ -93,3 +95,44 @@ Yes we do. You can try full-featured version of Convead for 14 days for free.
 
 = 1.0 =
 * Final release.
+
+== Upgrade Notice ==
+
+= 1.1.4 =
+Support Woocommerce 3.0
+
+= 1.1.3 =
+Set variant id for view product event
+
+= 1.1.2 =
+Disable sending update_order without uid. *
+
+= 1.1.1 =
+Replace contributors convead. Support WP 4.7.
+
+= 1.1.0 =
+Support order state
+
+= 1.0.7 =
+Convead track disable option
+
+= 1.0.6 =
+Warning if Curl disabled, Support WP 2.0
+
+= 1.0.5 =
+HTTPS widget
+
+= 1.0.4 =
+Go to SSL
+
+= 1.0.3 =
+Tested up to 4.3. Bump plugin description.
+
+= 1.0.2 =
+Bump readme.
+
+= 1.0.1 =
+Correcting the path to the directory.
+
+= 1.0 =
+Final release.
