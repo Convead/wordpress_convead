@@ -223,7 +223,7 @@ class Convead
             
             $product_id = $wp_query->post->ID;
             $product = wc_get_product( $product_id );
-            if (!$convead_plgn_options['only_product_id'] && $product->product_type == 'variable') {
+            if (!$convead_plgn_options['only_product_id'] && $product->get_type() == 'variable') {
                 $available_variations = $product->get_available_variations();
                 if (count($available_variations) > 0) {
                     $variant = array_shift($available_variations);
@@ -254,8 +254,11 @@ class Convead
         
         if(!($tracker = self::init_tracker())) return;
         
+        $data = $order->get_data();
+        
         // if order is created in the admin panel
-        if (is_admin_bar_showing() and $order->order_date == $order->modified_date) self::submitOrder($order_id);
+        $format = 'd.m.y H:i:s';
+        if (is_admin_bar_showing() and $data['date_created']->date($format) == $data['date_modified']->date($format)) self::submitOrder($order_id);
         else {
             $tracker->webHookOrderUpdate($order_id, self::switch_state( $order->get_status() ));
         }
