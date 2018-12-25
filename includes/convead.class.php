@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Аркадий
- * Date: 23.06.2015
- * Time: 14:51
- */
+
 class Convead
 {
     private static
@@ -290,8 +285,6 @@ class Convead
 
             self::updateUserInfo();
 
-            $url = $_SERVER["HTTP_HOST"];
-
             if (function_exists('wc_get_order')) $order = wc_get_order( $order_id );
             else $order = new WC_Order( $order_id );
 
@@ -334,7 +327,7 @@ class Convead
             
             $ConveadTracker = new ConveadTracker(
                 $convead_plgn_options['convead_key'],
-                $url,
+                self::domain(),
                 $guestUID,
                 self::$user_id,
                 $visitor_info
@@ -400,8 +393,6 @@ class Convead
         {
             require_once ( CONVEAD_PLUGIN_DIR . 'lib/ConveadTracker.php');
 
-            $url = $_SERVER["HTTP_HOST"];
-
             self::updateUserInfo();
 
             $visitor_info = array();
@@ -430,7 +421,7 @@ class Convead
 
             if (!$guestUID and !self::$user_id) return;
 
-            $ConveadTracker = new ConveadTracker( $convead_plgn_options['convead_key'], $url, $guestUID, self::$user_id, $visitor_info );
+            $ConveadTracker = new ConveadTracker( $convead_plgn_options['convead_key'], self::domain(), $guestUID, self::$user_id, $visitor_info );
 
             $cart = $wc->cart->get_cart();
 
@@ -505,6 +496,11 @@ class Convead
         return $state;
     }
 
+    private static function domain() {
+        $urlparts = parse_url(site_url());
+        return $urlparts['host'];
+    }
+
     private static function get_params()
     {
         static $params;
@@ -521,7 +517,7 @@ class Convead
         if(empty($convead_plgn_options['convead_key'])) return false;
         $app_key = $convead_plgn_options['convead_key'];
         require_once CONVEAD_PLUGIN_DIR . 'lib/ConveadTracker.php';
-        $tracker = new ConveadTracker($app_key);
+        $tracker = new ConveadTracker($app_key, self::domain());
         return $tracker;
     }
 
