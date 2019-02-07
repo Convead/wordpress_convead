@@ -249,11 +249,20 @@ class Convead
         
         if(!($tracker = self::init_tracker())) return;
         
-        $data = $order->get_data();
+        // Support Woocommerce 2.6.4
+        if(property_exists($order, 'order_date') and property_exists($order, 'modified_date')) {
+            $date_created = $order->order_date;
+            $date_modified = $order->modified_date;
+        }
+        else {
+            $data = $order->get_data();
+            // if order is created in the admin panel
+            $format = 'd.m.y H:i:s';
+            $date_created = $data['date_created']->date($format);
+            $date_modified = $data['date_modified']->date($format);
+        }
         
-        // if order is created in the admin panel
-        $format = 'd.m.y H:i:s';
-        if (is_admin_bar_showing() and $data['date_created']->date($format) == $data['date_modified']->date($format)) self::submitOrder($order_id);
+        if(is_admin_bar_showing() and $date_created == $date_modified) self::submitOrder($order_id);
         else {
             $tracker->webHookOrderUpdate($order_id, self::switch_state( $order->get_status() ));
         }
@@ -291,6 +300,7 @@ class Convead
             $visitor_info = array();
             $customer_id = get_current_user_id();
 
+            // Support Woocommerce 2.6.4
             # $first_name = self::getValue($order->get_billing_first_name(), self::$userFirstName);
             $first_name = self::getValue(get_user_meta( $customer_id, 'billing_first_name', true ), self::$userFirstName);
             if($first_name !== false){
