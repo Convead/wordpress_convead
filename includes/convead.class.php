@@ -289,22 +289,28 @@ class Convead
             else $order = new WC_Order( $order_id );
 
             $visitor_info = array();
-            $first_name = self::getValue($order->get_billing_first_name(), self::$userFirstName);
+            $customer_id = get_current_user_id();
+
+            # $first_name = self::getValue($order->get_billing_first_name(), self::$userFirstName);
+            $first_name = self::getValue(get_user_meta( $customer_id, 'billing_first_name', true ), self::$userFirstName);
             if($first_name !== false){
                 $visitor_info['first_name'] = $first_name;
             }
 
-            $last_name = self::getValue($order->get_billing_last_name(), self::$userLastName);
+            # $last_name = self::getValue($order->get_billing_last_name(), self::$userLastName);
+            $last_name = self::getValue(get_user_meta( $customer_id, 'billing_last_name', true ), self::$userLastName);
             if($last_name !== false){
                 $visitor_info['last_name'] = $last_name;
             }
 
-            $email = self::getValue($order->get_billing_email(), self::$userEmail);
+            # $email = self::getValue($order->get_billing_email(), self::$userEmail);
+            $email = self::getValue(get_user_meta( $customer_id, 'billing_email', true ), self::$userEmail);
             if($email !== false){
                 $visitor_info['email'] = $email;
             }
 
-            $phone = self::getValue($order->get_billing_phone(), self::$userPhone);
+            # $phone = self::getValue($order->get_billing_phone(), self::$userPhone);
+            $phone = self::getValue(get_user_meta( $customer_id, 'billing_phone', true ), self::$userPhone);
             if($phone !== false){
                 $visitor_info['phone'] = $phone;
             }
