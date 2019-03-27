@@ -3,7 +3,7 @@ Contributors: convead
 Tags: e-commerce, convead, woocommerce, widgets, email campaigns, analytics
 Requires at least: 4.2.0
 Tested up to: 5.0
-Stable tag: 1.1.6
+Stable tag: 1.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.2
@@ -56,6 +56,9 @@ Yes we do. You can try full-featured version of Convead for 14 days for free.
 
 == Changelog ==
 
+= 1.1.7 =
+* Fix visitor_info from order values
+
 = 1.1.6 =
 * Fix default domain
 
@@ -103,6 +106,9 @@ Yes we do. You can try full-featured version of Convead for 14 days for free.
 * Final release.
 
 == Upgrade Notice ==
+
+= 1.1.7 =
+Fix visitor_info from order values
 
 = 1.1.6 =
 Fix default domain
